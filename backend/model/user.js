@@ -1,0 +1,104 @@
+const mongoose=require("mongoose")
+
+const userSchema= new mongoose.Schema({
+    username:{
+        type:String,
+        required:true,
+        min:2,
+        max:20,
+        unique:true
+    },
+    email:{
+        type:String,
+        required:true,
+        max:40,
+        unique:true
+    },
+    password:{
+        type:String,
+        required:true,
+        min:6, 
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
+    desc:{
+        type:String,
+        default:''
+    },
+    DOB:{
+        type:String,
+    },
+    closeFriends:{
+        type:String,
+         default:''
+    },
+    profilePicture:{
+        type:String,
+        default:""
+    },
+    coverPicture:{
+        type:String,
+        default:""
+    },
+    followers:{
+        type:Array,
+        default:[]
+    },
+    following:{
+        type:Array,
+        default:[]
+    },
+    savedPost:{
+        type: [mongoose.Schema.Types.ObjectId],
+        default: [],
+        ref: "Post"
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
+    block:{
+        type:Boolean,
+        default:false
+    },
+    private:{
+        type:Boolean,
+        default:false
+    },
+    request:{
+        type:[String],
+        default:[]
+    },
+    verify:{
+        type:Boolean,
+        deafult:false
+    },
+    certificate:{
+       
+        name:{
+            type:String
+        },
+        filename:{
+            type:String
+        },
+        file:{
+            type:String
+        },
+        submitted:{
+            type:Boolean,
+            deafult:false
+        },
+        verified:{
+            type:Boolean,
+            deafult:false
+        }
+       
+    }
+},
+{
+    timestamps:true
+});
+
+module.exports=mongoose.model("User",userSchema);
