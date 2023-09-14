@@ -12,7 +12,7 @@ router.put("/comment",updateComment);
 router.put("/comment/delete",deleteComment)
 
 //get comments of a single post
-router.get("/comments/:id",getAllComments)
+router.get("/comments/:id",getAllComments);
 
 
 module.exports=router
