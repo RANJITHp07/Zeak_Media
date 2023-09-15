@@ -33,7 +33,7 @@ function FriendProfilePage() {
       setpost(response.data)
     }
     fetchData()
-  },[])
+  },[username])
 
   return (
     <div>

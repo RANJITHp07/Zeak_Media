@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import {Modal,message} from 'antd'
 import { logIn } from '../redux/features/auth';
 
-function Form(page) {
+function Form({page,admin}) {
 
    //form Details
    const username=useRef();
    const email=useRef();
    const password=useRef();
    const repassword=useRef()
+   const credentials=useRef()
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [change,setchange]=useState(false)
    const [loading,setloading]=useState(false)
@@ -123,25 +124,32 @@ function Form(page) {
          const userData={
             username: !change &&username.current.value,
             email:email.current.value,
-            password:password.current.value
+            password:password.current.value,
+            admin:admin,
+            credentials:credentials.current.value
          }
           const OTP=otp.otp1+otp.otp2+otp.otp3+otp.otp4+otp.otp5+otp.otp6
            const response=await emailVerify(OTP,email.current.value);
            if(response.data==='Successfully logged in'){
             if(change){
-              console.log("jii")
                navigate('/forgetpassword')
             }else{
-              console.log("hii")
               const res=await register(userData)
             if(res.data==='Saved'){
-                 navigate('/login')
+              if(admin){
+                navigate('/admin/login')
+              }else{
+                navigate('/login')
+              }
+                 
             }else{
+              message.info(res.data)
              setloading(false)
             }
             }
             
            }else{
+            
             setloading(false)
            }
          
@@ -149,24 +157,26 @@ function Form(page) {
         throw err
      }
    }
+
   return (
     <div >
-        <form className='grid' onSubmit={page.page ? handleSubmit : handleLogin}>
+        <form className='grid' onSubmit={page ? handleSubmit : handleLogin}>
         {
-            page.page &&  <input type="text" name="username" placeholder="Enter your username" className='border-2 rounded-lg p-3 my-3 lg:w-3/4' ref={username} required/>
+            page &&  <input type="text" name="username" placeholder="Enter your username" className='border-2 rounded-lg p-3 my-3 lg:w-3/4' ref={username} required/>
         }
            
             <input type="email" name="email" placeholder="Enter your email" className='border-2 rounded-lg p-3 my-3 lg:w-3/4 ' ref={email} required/>
+            {admin &&   <input type="text" name="creaditinals" placeholder="Enter admin credentials" className='border-2 rounded-lg p-3 my-3 lg:w-3/4 ' ref={credentials} required/>}
             <input type="password" name="password" placeholder="Enter your password" className='border-2 rounded-lg p-3 mt-3 lg:w-3/4' ref={password} required min={8}/>
-            {!page.page && <p className='text-sm text-blue-600 cursor-pointer' onClick={changePassword}>Forget Password</p>}
-            { page.page && <input type="password" name="password" placeholder="Confirm your password" className='border-2 rounded-lg p-3 my-3 lg:w-3/4' ref={repassword} required min={8}/>}
+            {!page && <p className='text-sm text-blue-600 cursor-pointer' onClick={changePassword}>Forget Password</p>}
+            { page && <input type="password" name="password" placeholder="Confirm your password" className='border-2 rounded-lg p-3 my-3 lg:w-3/4' ref={repassword} required min={8}/>}
 
             <button type="submit" className='bg-blue-500 text-white lg:w-3/4 p-3 rounded-lg mt-3'>
-  {page.page ? (loading ? <CircularProgress /> : 'Sign In') : (loading ? <CircularProgress /> : 'Log In')}
+  {page ? (loading ? <CircularProgress /> : 'Sign In') : (loading ? <CircularProgress /> : 'Log In')}
 </button>
 
         </form>
-        {page.page ? (
+        {page ? (
           <>
             <p className="mt-3 ">
               Do you have an account?

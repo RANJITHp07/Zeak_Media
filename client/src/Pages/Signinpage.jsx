@@ -10,7 +10,7 @@ function Signinpage() {
                  <p className="text-slate-500 mt-3">Connect with people everywhere in the world, bringing everyone together no matter where they are</p>
             </div>
             <div className="md:w-1/2 my-44 mx-16">
-               <Form page={true}/>
+               <Form page={true} admin={false}/>
             </div>
         </div>
     </div>

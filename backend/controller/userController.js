@@ -29,13 +29,15 @@ if(bucketName && region && accessKeyId && secretAccessKey){
 
 const getUserProfile=async(req,res,next)=>{
     try{
-      if(mongoose.Types.ObjectId.isValid(req.params.id)){
+      const user= await User.findOne({username:req.params.id})
+      if(!user){
         const user= await User.findOne({_id:req.params.id})
         const{password,createdAt,...others}=user._doc
         res.status(201).json(others)
       }else{
-        const user= await User.findOne({username:req.params.id})
+
         const{password,createdAt,...others}=user._doc
+        console.log(others)
         res.status(201).json(others)
       }
         

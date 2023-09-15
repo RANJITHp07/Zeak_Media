@@ -11,6 +11,7 @@ import ChatPage from './Pages/chatPage';
 import PostReportPage from './Pages/postReportPage';
 import VerifyPage from './Pages/verifyPage';
 import UserVerifyPage from './Pages/userVerifyPage';
+import AdminLoginpage from './Pages/adminLoginPage';
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
         <Route path="/chat" name="chat" element={ <ChatPage/>} />
         <Route path="/post/report" name="report" element={<PostReportPage/>} />
         <Route path="/verifyuser" name="verify" element={<VerifyPage/>} />
+        <Route path="/admin/signin" name="adminverify" element={<AdminLoginpage/>} />
         <Route path="/admin/verifyuser" name="adminverify" element={<UserVerifyPage/>} />
       </Routes>
     </Router>

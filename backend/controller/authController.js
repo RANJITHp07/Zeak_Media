@@ -65,14 +65,29 @@ const userRegistration=async(req,res,next)=>{
         const salt = await bcrypt.genSaltSync(10);
         const hashpassword =await  bcrypt.hashSync(req.body.password, salt);
         try{
-          
+           if(req.body.admin){
+               if(process.env.CREDENTIALS===req.body.credentials){
+                const newUser=new User({
+                  username:req.body.username,
+                  email:req.body.email,
+                  password:hashpassword,
+                  admin:true
+              })
+              await newUser.save();
+              res.status(201).json("Saved")
+               }else{
+                es.status(201).json("Wrong Credentials")
+               }
+           }else{
             const newUser=new User({
-                username:req.body.username,
-                email:req.body.email,
-                password:hashpassword
-            })
-           await newUser.save();
-            res.status(201).json("Saved")
+              username:req.body.username,
+              email:req.body.email,
+              password:hashpassword
+          })
+         await newUser.save();
+          res.status(201).json("Saved")
+           }
+            
         }catch(err){
            next(err)
         }

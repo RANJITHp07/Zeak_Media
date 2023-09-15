@@ -296,7 +296,10 @@ function Navbar() {
             return (
               <>
               <div className="flex justify-between mt-5 items-center">
-              <div className='flex items-center' onClick={()=>navigate(`/user/${p.username}`)}>
+              <div className='flex items-center' onClick={()=>{
+                navigate(`/user/${p.username}`)
+                
+              }}>
               <img src={process.env.PUBLIC_URL + '/images/profile.jpg'} className='rounded-full w-10 h-10 mx-3 ml-6'/>
                  <p><b>{p.username}</b></p>
               </div>
