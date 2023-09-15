@@ -76,7 +76,7 @@ const userRegistration=async(req,res,next)=>{
               await newUser.save();
               res.status(201).json("Saved")
                }else{
-                es.status(201).json("Wrong Credentials")
+                res.status(201).json("Wrong Credentials")
                }
            }else{
             const newUser=new User({

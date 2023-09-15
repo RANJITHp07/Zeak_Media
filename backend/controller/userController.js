@@ -87,7 +87,7 @@ const updateProfile=async function(req,res,next){
 
 const allUsers=async(req,res,next)=>{
   try{ 
-     const allusers=await User.find().sort({username:1})
+     const allusers=await User.find({admin:false}).sort({username:1})
      if(req.query.type==='filter'){
      const p=allusers.map((p)=>{
           return ({

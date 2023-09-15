@@ -72,7 +72,12 @@ function Form({page,admin}) {
          if(res.data.userId){
           
           dispatch(logIn(res.data))
-          navigate("/")
+          if(admin){
+            navigate("/admin")
+          }else{
+            navigate("/")
+          }
+          
           
          }else{
             message.info("Wrong email or password")
@@ -166,7 +171,7 @@ function Form({page,admin}) {
         }
            
             <input type="email" name="email" placeholder="Enter your email" className='border-2 rounded-lg p-3 my-3 lg:w-3/4 ' ref={email} required/>
-            {admin &&   <input type="text" name="creaditinals" placeholder="Enter admin credentials" className='border-2 rounded-lg p-3 my-3 lg:w-3/4 ' ref={credentials} required/>}
+            { (page && admin) &&   <input type="text" name="creaditinals" placeholder="Enter admin credentials" className='border-2 rounded-lg p-3 my-3 lg:w-3/4 ' ref={credentials} required/>}
             <input type="password" name="password" placeholder="Enter your password" className='border-2 rounded-lg p-3 mt-3 lg:w-3/4' ref={password} required min={8}/>
             {!page && <p className='text-sm text-blue-600 cursor-pointer' onClick={changePassword}>Forget Password</p>}
             { page && <input type="password" name="password" placeholder="Confirm your password" className='border-2 rounded-lg p-3 my-3 lg:w-3/4' ref={repassword} required min={8}/>}
