@@ -131,7 +131,7 @@ function Form({page,admin}) {
             email:email.current.value,
             password:password.current.value,
             admin:admin,
-            credentials:credentials.current.value
+            credentials: credentials.current ? credentials.current.value : undefined
          }
           const OTP=otp.otp1+otp.otp2+otp.otp3+otp.otp4+otp.otp5+otp.otp6
            const response=await emailVerify(OTP,email.current.value);

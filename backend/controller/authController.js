@@ -71,7 +71,7 @@ const userRegistration=async(req,res,next)=>{
                   username:req.body.username,
                   email:req.body.email,
                   password:hashpassword,
-                  admin:true
+                  isAdmin:true
               })
               await newUser.save();
               res.status(201).json("Saved")

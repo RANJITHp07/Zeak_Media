@@ -1,7 +1,6 @@
 const crypto = require('crypto')
 const User=require('../model/user')
 const dotenv=require('dotenv')
-const mongoose=require('mongoose')
 const { S3Client, PutObjectCommand,GetObjectCommand }=require("@aws-sdk/client-s3")
 const nodemailer=require('nodemailer')
 
@@ -87,7 +86,7 @@ const updateProfile=async function(req,res,next){
 
 const allUsers=async(req,res,next)=>{
   try{ 
-     const allusers=await User.find({admin:false}).sort({username:1})
+     const allusers=await User.find({isAdmin:false}).sort({username:1})
      if(req.query.type==='filter'){
      const p=allusers.map((p)=>{
           return ({
